@@ -1,87 +1,89 @@
+🇩🇪 [Deutsche Version](README.de.md)
+
 # AD Management Dashboard
 
-**AD Management Dashboard** ist ein modulares, PowerShell-basiertes Tool zur grafischen Verwaltung von Active Directory – entwickelt für den praktischen Einsatz im IT-Alltag.
+**AD Management Dashboard** is a modular, PowerShell-based tool for managing Active Directory through a graphical interface — built for practical, day-to-day IT operations.
 
-Die Anwendung entstand als Eigenprojekt mit dem Ziel, wiederkehrende Administrative Aufgaben im AD-Umfeld zu bündeln und über eine übersichtliche WPF-Oberfläche schnell und sicher durchführen zu können – ohne direkt auf die ADUC-Konsole angewiesen zu sein.
+The application was developed as a personal project to consolidate recurring AD administration tasks into a single, easy-to-use WPF interface, removing the need to work directly in the ADUC console.
 
 ---
 
 ## Features
 
-### Benutzerverwaltung
-- **Suche** nach Benutzern über SamAccountName oder Anzeigename (LDAP-Filter)
-- **Aktivieren & Deaktivieren** von Benutzerkonten inkl. automatischem Verschieben in Inaktiv-OUs
-- **Entsperren** gesperrter Konten
-- **Passwort-Reset** mit Optionen für „Änderung bei nächster Anmeldung" und „Benutzer darf Passwort nicht ändern"
-- **Benutzerinformationen anpassen**: Vorname, Nachname, Anzeigename, Kontoablaufdatum
+### User Management
+- **Search** for users by SamAccountName or display name (LDAP filter)
+- **Enable & disable** user accounts including automatic relocation to inactive OUs
+- **Unlock** locked accounts
+- **Password reset** with options for "Change at next logon" and "User cannot change password"
+- **Edit user attributes**: first name, last name, display name, account expiry date
 
-### Computerverwaltung
-- **Suche** nach Computerobjekten im AD
-- **Aktivieren & Deaktivieren** von Computerkonten inkl. OU-Verschiebung
+### Computer Management
+- **Search** for computer objects in AD
+- **Enable & disable** computer accounts including OU relocation
 
-### Gruppenverwaltung
-- Benutzer **Gruppen hinzufügen oder entfernen**
-- Unterstützt Drucker-, Standard- und Exchange-Verteilergruppen
-- Filterbare Gruppenauswahl per Suchdialog
+### Group Management
+- **Add or remove** users from groups
+- Supports printer groups, standard groups and Exchange distribution groups
+- Filterable group selection via search dialog
 
-### Citrix-Integration
-- Anzeige aktiver **Citrix-Sessions** (aus CSV-Quelle)
-- **Session-Abmeldung** mit Benutzerbenachrichtigung (60-Sekunden-Vorlauf) über Delivery Controller
+### Citrix Integration
+- Display active **Citrix sessions** (from CSV source)
+- **Session logoff** with user notification (60-second grace period) via Delivery Controller
 
-### TeamViewer-Integration
-- Direktstart von **TeamViewer** für den ausgewählten Computer
+### TeamViewer Integration
+- Direct **TeamViewer** launch for the selected computer
 
 ### Logging
-- Alle Aktionen werden in einer **UTF-8 Logdatei** protokolliert (`%TEMP%\AD-Tool.log`)
+- All actions are logged to a **UTF-8 log file** (`%TEMP%\AD-Tool.log`)
 
 ---
 
-## Technologien
+## Tech Stack
 
-| Technologie | Verwendung |
+| Technology | Usage |
 |---|---|
-| PowerShell 5.1 | Kernlogik, AD-Abfragen, Citrix-Steuerung |
-| WPF / XAML | Grafische Benutzeroberfläche |
-| Active Directory Module (RSAT) | AD-Operationen (Get/Set/Move/Enable/Disable) |
-| Citrix Broker SDK | Session-Management über Delivery Controller |
+| PowerShell 5.1 | Core logic, AD queries, Citrix control |
+| WPF / XAML | Graphical user interface |
+| Active Directory Module (RSAT) | AD operations (Get/Set/Move/Enable/Disable) |
+| Citrix Broker SDK | Session management via Delivery Controller |
 
 ---
 
-## Projektstruktur
+## Project Structure
 
 ```
 AD-Management-Dashboard/
-├── Main.ps1                          # Einstiegspunkt, Login, GUI-Initialisierung
-├── Main.cmd                          # Starter (bypasses ExecutionPolicy)
-├── GUI.xaml                          # WPF-Oberfläche
+├── Main.ps1                          # Entry point, login, GUI initialization
+├── Main.cmd                          # Launcher (bypasses ExecutionPolicy)
+├── GUI.xaml                          # WPF interface
 ├── Modules/
-│   ├── Tab1.AD-Management.ps1        # Kern-Modul: Suche, Buttons, Gruppen, Sessions
-│   ├── Tab1.Feature_TeamViewer.ps1   # TeamViewer-Integration
-│   ├── Tab1.Feature_CitrixLogoff.ps1 # Citrix Session-Abmeldung
-│   └── Tab1.Feature_EditUser.ps1     # Benutzerinformationen bearbeiten (Popup)
+│   ├── Tab1.AD-Management.ps1        # Core module: search, buttons, groups, sessions
+│   ├── Tab1.Feature_TeamViewer.ps1   # TeamViewer integration
+│   ├── Tab1.Feature_CitrixLogoff.ps1 # Citrix session logoff
+│   └── Tab1.Feature_EditUser.ps1     # Edit user attributes (popup)
 └── Dialogs/
-    └── GroupSelectionDialog.ps1      # Filterbarer Gruppenauswahl-Dialog
+    └── GroupSelectionDialog.ps1      # Filterable group selection dialog
 ```
 
 ---
 
-## Voraussetzungen
+## Requirements
 
 - Windows PowerShell >= 5.1
-- RSAT-AD-PowerShell (`ActiveDirectory`-Modul)
-- Netzwerkzugang zum Domain Controller
-- Für Citrix-Features: Citrix Broker PowerShell SDK auf dem Delivery Controller
+- RSAT-AD-PowerShell (`ActiveDirectory` module)
+- Network access to the Domain Controller
+- For Citrix features: Citrix Broker PowerShell SDK on the Delivery Controller
 
 ---
 
-## Installation & Start
+## Installation & Usage
 
 ```bash
-git clone https://github.com/yourusername/AD-Management-Dashboard.git
+git clone https://github.com/savenna-kaiser/AD-Management-Dashboard.git
 cd AD-Management-Dashboard
 ```
 
-Anschließend entweder per Doppelklick auf `Main.cmd` starten, oder direkt in PowerShell:
+Then either double-click `Main.cmd` to launch, or run directly in PowerShell:
 
 ```powershell
 powershell.exe -ExecutionPolicy Bypass -File ".\Main.ps1"
@@ -89,6 +91,6 @@ powershell.exe -ExecutionPolicy Bypass -File ".\Main.ps1"
 
 ---
 
-## Hinweis
+## Note
 
-Dieses Repository ist eine anonymisierte Version eines produktiv eingesetzten Tools. Domänenspezifische Werte (Server, OUs, Domänenname) wurden durch generische Platzhalter ersetzt und müssen vor dem Einsatz an die eigene Umgebung angepasst werden.
+This repository is an anonymised version of a tool used in a production environment. Domain-specific values (servers, OUs, domain name) have been replaced with generic placeholders and must be adapted to your own environment before use.
